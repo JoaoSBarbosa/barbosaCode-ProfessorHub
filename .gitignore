@@ -41,4 +41,5 @@ build/
 
 # Ignorar arquivos .properties
 *.properties
-
+application.yaml
+application-dev.yaml
