@@ -40,5 +40,8 @@ build/
 .vscode/
 
 # Ignorar arquivos .properties
-*.properties
+#*.properties
 
+maven-wrapper.properties
+application.yaml
+application-dev.yaml
