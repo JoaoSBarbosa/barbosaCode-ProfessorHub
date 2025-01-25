@@ -1,12 +1,12 @@
 openapi: 3.0.2
 info:
-  title: HyperProf
+  title: ProfessorHub
   description: API para gerenciamento de professores e aulas particulares
   version: 1.0.0
   contact:
-    name: TreinaWeb
-    url: https://www.treinaweb.com.br/contato
-    email: contato@treinaweb.com.br
+    name: BarbosaCode
+    url: https://joaobarbosadev.vercel.app
+    email: contato.joaobarbosadev@gmail.com
 servers:
   - url: http://localhost:8081
     description: Servidor local
