@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: ${PROFESSOR_HUB_DB_USER}
+    password: ${PROFESSOR_HUB_DB_PASSWORD}
+    url: jdbc:mysql://${PROFESSOR_HUB_DB_HOST}:${PROFESSOR_HUB_DB_PORT}/${PROFESSOR_HUB_DB_NAME}?serverTimezone=UTC
+
+  jpa:
+    show-sql: false
+    properties:
+        "[format_sql]": false
