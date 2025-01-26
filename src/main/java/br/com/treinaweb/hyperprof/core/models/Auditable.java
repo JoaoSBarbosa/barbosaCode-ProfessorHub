@@ -1,5 +1,4 @@
 package br.com.treinaweb.hyperprof.core.models;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -8,19 +7,31 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
 
 /**
- * Passo 1 - Criar uma classe de configuração e ativar o Auditable e adionar as notaoes de beans: @Configuration e @EnableJpaAuditing
- * Passo 2 - Adicionar a anotação @CreatedDate para campos que serão gravado automaticamento ao inserir um registro
- * Passo 3 - Adicionar o anatação @LastModifiedDate para campo que sera prechido automaticamnte após ser atualizada
- * Passo 4 - Na classe adicoanr a anotaçao @EntityListener(AuditongEntityList.class para ativar na classe
+ * Lembrete: Configuração para auditoria automática de entidades com Spring Data JPA.
+ *
+ * Etapas para ativar e configurar a auditoria:
+ *
+ * 1. Crie uma classe de configuração e ative o recurso de auditoria:
+ *    - Utilize as anotações: @Configuration e @EnableJpaAuditing.
+ *
+ * 2. Para registrar automaticamente a data de criação ao inserir um registro:
+ *    - Adicione a anotação @CreatedDate no campo correspondente.
+ *
+ * 3. Para registrar automaticamente a última data de modificação ao atualizar um registro:
+ *    - Adicione a anotação @LastModifiedDate no campo correspondente.
+ *
+ * 4. Ative o suporte de auditoria na classe base:
+ *    - Adicione a anotação @EntityListeners(AuditingEntityListener.class).
+ *
+ * Observação:
+ * - Utilize a anotação @MappedSuperclass para informar que esta classe será herdada
+ *   por outras entidades, mas não será mapeada como uma tabela separada no banco de dados.
  */
 
 @Getter

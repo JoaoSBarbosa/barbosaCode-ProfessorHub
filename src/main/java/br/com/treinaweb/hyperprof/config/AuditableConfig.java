@@ -1,4 +1,4 @@
-package br.com.treinaweb.hyperprof.api;
+package br.com.treinaweb.hyperprof.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
