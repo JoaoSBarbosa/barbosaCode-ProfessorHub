@@ -1,7 +1,7 @@
-package br.com.treinaweb.hyperprof.api.teachers.mappers;
+package br.com.joaobarbosadev.professorhub.api.teachers.mappers;
 
-import br.com.treinaweb.hyperprof.api.teachers.dtos.TeacherResponse;
-import br.com.treinaweb.hyperprof.core.models.Teacher;
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
+import br.com.joaobarbosadev.professorhub.core.models.Teacher;
 import org.springframework.stereotype.Component;
 
 @Component
