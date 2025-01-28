@@ -11,7 +11,7 @@
     <groupId>br.com.joaobarbosadev</groupId>
     <artifactId>professorHub</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hyperprof</name>
+    <name>professorhub</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>17</java.version>
