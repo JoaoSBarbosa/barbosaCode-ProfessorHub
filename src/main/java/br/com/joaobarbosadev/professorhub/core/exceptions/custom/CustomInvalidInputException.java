@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.exceptions.custom;
+package br.com.joaobarbosadev.professorhub.core.exceptions.custom;
 
 public class CustomInvalidInputException extends RuntimeException {
     public CustomInvalidInputException(String message) {

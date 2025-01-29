@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.exceptions.responses;
+package br.com.joaobarbosadev.professorhub.core.exceptions.responses;
 
 public class StandardError {
 
