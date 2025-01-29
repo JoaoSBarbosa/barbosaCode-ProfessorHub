@@ -1,7 +1,7 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.mappers;
 
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
-import br.com.joaobarbosadev.professorhub.core.models.Teacher;
+import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import org.springframework.stereotype.Component;
 
 @Component

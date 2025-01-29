@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.core.models;
+package br.com.joaobarbosadev.professorhub.core.models.abstractions;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
