@@ -7,4 +7,5 @@ import java.util.List;
 public interface TeacherService {
 
     public List<TeacherResponse> findByDescription(String description);
+    TeacherResponse findById(Long id);
 }

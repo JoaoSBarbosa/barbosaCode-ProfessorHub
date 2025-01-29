@@ -1,6 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.dtos;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class TeacherResponse {
 
     private Long id;
@@ -19,14 +20,10 @@ public class TeacherResponse {
     private String email;
     private int age;
     private String description;
-    @JsonProperty("hourly_rate")
     private BigDecimal hourlyRate;
-    @JsonProperty("url_photo")
     private String urlPhoto;
     private String password;
-    @JsonProperty("created_at")
     private LocalDateTime createdAt;
-    @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
 
