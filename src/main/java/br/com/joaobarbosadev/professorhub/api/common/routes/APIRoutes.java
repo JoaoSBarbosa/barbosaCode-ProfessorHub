@@ -7,5 +7,8 @@ public class APIRoutes {
     public static final String ROUTE_TEACHERS = API + TEACHERS;
     public static final String DESCRIPTION = "/description";
 
+
+    public static final String STUDENTS = API + "/students";
+    public static final String ROUTE_STUDENTS = API + STUDENTS;
     private APIRoutes() {}
 }

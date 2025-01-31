@@ -10,9 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class StudentServiceImpl implements StudentService {
 
     private final StudentMapper studentMapper;
