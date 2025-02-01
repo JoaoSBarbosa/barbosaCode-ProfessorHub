@@ -1,8 +1,13 @@
-package br.com.joaobarbosadev.professorhub.core.models;
+package br.com.joaobarbosadev.professorhub.core.models.entities;
+import br.com.joaobarbosadev.professorhub.core.models.abstractions.Auditable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -11,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Table(name = "professores")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class Teacher extends Auditable{
+public class Teacher extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -30,5 +35,4 @@ public class Teacher extends Auditable{
     private String urlPhoto;
     @Column(name = "password")
     private String password;
-
 }

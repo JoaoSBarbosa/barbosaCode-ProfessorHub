@@ -1,5 +1,5 @@
 package br.com.joaobarbosadev.professorhub.core.repositories;
-import br.com.joaobarbosadev.professorhub.core.models.Teacher;
+import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

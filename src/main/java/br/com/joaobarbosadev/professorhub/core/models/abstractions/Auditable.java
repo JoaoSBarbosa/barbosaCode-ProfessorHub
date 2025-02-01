@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.core.models;
+package br.com.joaobarbosadev.professorhub.core.models.abstractions;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -47,7 +47,7 @@ public abstract class Auditable {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "update_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
 }
