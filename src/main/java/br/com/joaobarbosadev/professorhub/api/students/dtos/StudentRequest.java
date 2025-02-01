@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.students.dtos;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -32,4 +33,6 @@ public class StudentRequest {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) // yyyy-MM-dd HH:mm:ss
     @JsonProperty(namespace = "data_aula")
     private LocalDateTime classDateTime;
+
+
 }

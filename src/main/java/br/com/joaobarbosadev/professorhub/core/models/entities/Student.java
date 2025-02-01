@@ -1,6 +1,7 @@
 package br.com.joaobarbosadev.professorhub.core.models.entities;
 import br.com.joaobarbosadev.professorhub.api.common.TableName.TableName;
 import br.com.joaobarbosadev.professorhub.core.models.abstractions.Auditable;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 

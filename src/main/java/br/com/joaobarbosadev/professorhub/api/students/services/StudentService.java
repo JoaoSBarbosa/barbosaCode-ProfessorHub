@@ -1,4 +1,5 @@
 package br.com.joaobarbosadev.professorhub.api.students.services;
+import br.com.joaobarbosadev.professorhub.api.students.dtos.StudentRequest;
 import br.com.joaobarbosadev.professorhub.api.students.dtos.StudentResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,5 +11,6 @@ public interface StudentService {
     StudentResponse findById(Long id);
     StudentResponse save(StudentResponse student);
     StudentResponse update(StudentResponse student);
+    StudentResponse saveStudent(StudentRequest student, Long teacherId);
     void deleteById(Long id);
 }
