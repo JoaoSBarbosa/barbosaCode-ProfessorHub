@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.students.dtos;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
+import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -23,7 +24,7 @@ public class StudentResponse {
     @JsonProperty(namespace = "data_aula")
     private LocalDateTime classDate;
     @JsonProperty(namespace = "professor")
-    private TeacherResponse teacher;
+    private Teacher teacher;
     @JsonProperty(namespace = "criado_em")
     private LocalDateTime createdAt;
     @JsonProperty(namespace = "atualizado_em")

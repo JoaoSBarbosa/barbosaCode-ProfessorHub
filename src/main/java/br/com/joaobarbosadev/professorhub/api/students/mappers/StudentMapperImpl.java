@@ -1,37 +1,49 @@
 package br.com.joaobarbosadev.professorhub.api.students.mappers;
-
+import br.com.joaobarbosadev.professorhub.api.students.dtos.StudentRequest;
 import br.com.joaobarbosadev.professorhub.api.students.dtos.StudentResponse;
-import br.com.joaobarbosadev.professorhub.api.teachers.mappers.TeacherMapper;
 import br.com.joaobarbosadev.professorhub.core.models.entities.Student;
 import org.springframework.stereotype.Component;
 
 @Component
 public class StudentMapperImpl implements StudentMapper {
 
-    private final TeacherMapper teacherMapper;
-
-    public StudentMapperImpl(TeacherMapper teacherMapper) {
-        this.teacherMapper = teacherMapper;
-    }
 
     @Override
     public StudentResponse toStudentResponse(Student student) {
-        if(student == null) return null;
+        if (student == null) return null;
 
         return StudentResponse
                 .builder()
-                .studentId( student.getStudentId() )
-                .name( student.getName() )
-                .email( student.getEmail() )
-                .teacher(  teacherMapper.toTeacherResponse(student.getTeacher()) )
-                .createdAt( student.getCreatedAt() )
-                .updatedAt( student.getUpdatedAt() )
-                .classDate( student.getClassDate() )
+                .studentId(student.getStudentId())
+                .name(student.getName())
+                .email(student.getEmail())
+                .teacher(student.getTeacher())
+                .createdAt(student.getCreatedAt())
+                .updatedAt(student.getUpdatedAt())
+                .classDate(student.getClassDate())
+                .build();
+    }
+
+    @Override
+    public Student toStudentByRequest(StudentRequest studentRequest) {
+        if (studentRequest == null) return null;
+        return Student
+                .builder()
+                .name(studentRequest.getName())
+                .email(studentRequest.getEmail())
+                .classDate(studentRequest.getClassDateTime())
                 .build();
     }
 
     @Override
     public Student toStudent(StudentResponse studentResponse) {
-        return null;
+        if (studentResponse == null) return null;
+        return Student
+                .builder()
+                .classDate(studentResponse.getClassDate())
+                .studentId(studentResponse.getStudentId())
+                .teacher(studentResponse.getTeacher())
+                .email(studentResponse.getEmail())
+                .build();
     }
 }
