@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.students.dtos;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
@@ -14,12 +15,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class StudentResponse {
+    @JsonProperty(namespace = "id_estudante")
     private Long studentId;
+    @JsonProperty(namespace = "nome_estudante")
     private String name;
     private String email;
+    @JsonProperty(namespace = "data_aula")
     private LocalDateTime classDate;
+    @JsonProperty(namespace = "professor")
     private TeacherResponse teacher;
+    @JsonProperty(namespace = "criado_em")
     private LocalDateTime createdAt;
+    @JsonProperty(namespace = "atualizado_em")
     private LocalDateTime updatedAt;
 
 }
