@@ -1,11 +1,15 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.controllers;
 
 import br.com.joaobarbosadev.professorhub.api.common.routes.APIRoutes;
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherRequest;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.api.teachers.services.TeacherService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -18,6 +22,13 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
+
+    @PostMapping
+    public ResponseEntity<TeacherResponse> saveTeacher(@RequestBody @Valid TeacherRequest teacherRequest) {
+        var teacherResponse = teacherService.saveTeacher(teacherRequest);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(teacherResponse.getId()).toUri();
+        return ResponseEntity.created(uri).body(teacherResponse);
+    }
     @GetMapping("/ping")
     public ResponseEntity<String> ping() {
         return ResponseEntity.ok("pong");

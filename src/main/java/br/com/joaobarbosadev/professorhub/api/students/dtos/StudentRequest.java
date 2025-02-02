@@ -19,21 +19,21 @@ import java.time.LocalDateTime;
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class StudentRequest {
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 100)
+    @NotNull(message = "O campo Nome é obrigatório.")
+    @NotBlank(message = "O campo Nome não pode estar vazio ou conter apenas espaços em branco.")
+    @Size(min = 3, max = 100, message = "O campo Nome deve ter entre 3 e 100 caracteres.")
     private String nome;
 
-    @Email
-    @NotNull
-    @NotEmpty
-    @Size(min = 3, max = 255)
+    @Email(message = "O campo E-mail deve conter um endereço de e-mail válido.")
+    @NotNull(message = "O campo E-mail é obrigatório.")
+    @NotBlank(message = "O campo E-mail não pode estar vazio ou conter apenas espaços em branco.")
+    @Size(min = 3, max = 255, message = "O campo E-mail deve ter entre 3 e 255 caracteres.")
     private String email;
 
-    @Future
-    @NotNull
+    @Future(message = "A Data da Aula deve ser uma data futura.")
+    @NotNull(message = "O campo Data da Aula é obrigatório.")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) // yyyy-MM-dd HH:mm:ss
-    @JsonProperty(namespace = "data_aula")
+    @JsonProperty("data_aula")
     private LocalDateTime dataAula;
 
 

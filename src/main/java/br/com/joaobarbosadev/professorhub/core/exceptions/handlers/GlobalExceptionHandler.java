@@ -5,6 +5,7 @@ import br.com.joaobarbosadev.professorhub.api.common.dtos.ValidationErrorRespons
 import br.com.joaobarbosadev.professorhub.core.exceptions.custom.CustomEntityNotFoundException;
 import br.com.joaobarbosadev.professorhub.core.exceptions.responses.StandardError;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -53,8 +54,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         // Converter os nomes dos campos para snake_case
         ex.getBindingResult().getFieldErrors().forEach(error -> {
-
             var fieldName = error.getField();
+            // Para aplicar snake case nos fields
             var snakeCaseFieldName = objectMapper.getPropertyNamingStrategy().nameForField(null,null,fieldName);
             var errorMessage = error.getDefaultMessage();
 

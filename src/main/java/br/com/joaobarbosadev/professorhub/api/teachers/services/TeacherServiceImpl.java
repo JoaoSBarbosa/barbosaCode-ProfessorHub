@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.services;
 
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherRequest;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.api.teachers.mappers.TeacherMapper;
 import br.com.joaobarbosadev.professorhub.api.teachers.mappers.TeacherMapperImpl;
@@ -22,6 +23,11 @@ public class TeacherServiceImpl implements TeacherService {
         this.teacherMapper = teacherMapper;
     }
 
+    @Override
+    public TeacherResponse saveTeacher(TeacherRequest teacherRequest) {
+        var teacherForSave = teacherMapper.toTeacher(teacherRequest);
+        return teacherMapper.toTeacherResponse(teacherRepository.save(teacherForSave));
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -34,4 +40,6 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherResponse findById(Long id) {
        return teacherRepository.findById(id).map(teacherMapper::toTeacherResponse).orElseThrow(()-> new CustomEntityNotFoundException("Professor não localizado com o ID: " + id));
     }
+
+
 }
