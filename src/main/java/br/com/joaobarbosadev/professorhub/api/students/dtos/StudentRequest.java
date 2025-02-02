@@ -1,7 +1,8 @@
 package br.com.joaobarbosadev.professorhub.api.students.dtos;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,12 +16,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class StudentRequest {
 
     @NotNull
     @NotEmpty
     @Size(min = 3, max = 100)
-    private String name;
+    private String nome;
 
     @Email
     @NotNull
@@ -32,7 +34,7 @@ public class StudentRequest {
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) // yyyy-MM-dd HH:mm:ss
     @JsonProperty(namespace = "data_aula")
-    private LocalDateTime classDateTime;
+    private LocalDateTime dataAula;
 
 
 }
