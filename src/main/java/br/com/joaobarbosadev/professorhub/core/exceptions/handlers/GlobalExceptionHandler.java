@@ -4,6 +4,8 @@ import br.com.joaobarbosadev.professorhub.api.common.Utils.Util;
 import br.com.joaobarbosadev.professorhub.api.common.dtos.ValidationErrorResponse;
 import br.com.joaobarbosadev.professorhub.core.exceptions.custom.CustomEntityNotFoundException;
 import br.com.joaobarbosadev.professorhub.core.exceptions.responses.StandardError;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,12 @@ import java.util.*;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+
+    private final ObjectMapper objectMapper;
+
+    public GlobalExceptionHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @ExceptionHandler(CustomEntityNotFoundException.class)
     public ResponseEntity<StandardError> handleEntityNotFound(CustomEntityNotFoundException exception, HttpServletRequest request) {
@@ -43,14 +51,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ) {
         var status = (HttpStatus) statusCode;
         var errors = new HashMap<String, List<String>>();
+
+        // Converter os nomes dos campos para snake_case
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             var fieldName = error.getField();
+            // Para aplicar snake case nos fields
+            var snakeCaseFieldName = objectMapper.getPropertyNamingStrategy().nameForField(null,null,fieldName);
             var errorMessage = error.getDefaultMessage();
-            if(errors.containsKey(fieldName)) {
-                errors.get(fieldName).add(errorMessage);
-            }else {
-                errors.put(fieldName, new ArrayList<String>(Collections.singletonList(errorMessage)));
-            }
+
+            errors.computeIfAbsent(snakeCaseFieldName, k -> new ArrayList<>()).add(errorMessage);
+
+//            if(errors.containsKey(fieldName)) {
+//                errors.get(fieldName).add(errorMessage);
+//            }else {
+//                errors.put(fieldName, new ArrayList<String>(Collections.singletonList(errorMessage)));
+//            }
         });
         var body = ValidationErrorResponse
                 .builder()

@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.mappers;
 
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherRequest;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import org.springframework.stereotype.Component;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Component;
 public class TeacherMapperImpl implements TeacherMapper {
     @Override
     public TeacherResponse toTeacherResponse(Teacher teacher) {
-        if(teacher == null) return null;
+        if (teacher == null) return null;
 
 
         return TeacherResponse
                 .builder()
-                .id( teacher.getId() )
+                .id(teacher.getId())
                 .name(teacher.getName())
                 .description(teacher.getDescription())
                 .age(teacher.getAge())
@@ -39,4 +40,19 @@ public class TeacherMapperImpl implements TeacherMapper {
 //       if(teacher.getUpdatedAt() != null) response.setUpdatedAt(teacher.getUpdatedAt());
 //       return response;
     }
+
+    @Override
+    public Teacher toTeacher(TeacherRequest teacherRequest) {
+        if (teacherRequest == null) return null;
+
+        return Teacher.builder()
+                .description( teacherRequest.getDescricao() )
+                .name( teacherRequest.getNome() )
+                .age( teacherRequest.getIdade() )
+                .email( teacherRequest.getEmail() )
+                .password( teacherRequest.getSenha() )
+                .hourlyRate( teacherRequest.getValorHora() )
+                .build();
+    }
+
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `professores` MODIFY `foto_perfil` VARCHAR(255) NULL;

@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.mappers;
 
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherRequest;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 
@@ -11,5 +12,5 @@ public interface TeacherMapper {
      */
 
     TeacherResponse toTeacherResponse(Teacher teacher);
-
+    Teacher toTeacher(TeacherRequest teacherRequest);
 }

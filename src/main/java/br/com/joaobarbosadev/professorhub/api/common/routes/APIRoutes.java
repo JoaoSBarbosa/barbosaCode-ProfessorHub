@@ -10,7 +10,6 @@ public class APIRoutes {
     public static final String DESCRIPTION = "/description";
     public static final String TEACHER_ID_VARIABLE = "/{professorId}";
 
-
     public static final String STUDENTS = "/students";
     public static final String ROUTE_STUDENTS = API + STUDENTS;
     public static final String ROUTE_POST_STUDENTS_TEACHERS = TEACHERS + TEACHER_ID_VARIABLE;

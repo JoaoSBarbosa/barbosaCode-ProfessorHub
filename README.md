@@ -40,20 +40,20 @@
 
 ### Rotas
 
-| Rota                                     | Método | Descrição                                         | Requer Autenticação   |
-|------------------------------------------|--------|---------------------------------------------------|-----------------------|
-| `/api/teachers`                          | GET    | Lista os professores                              | Não                   |
-| `/api/teachers/{teacher_id}`             | GET    | Detalhes do professor                             | Não                   |
-| `/api/teachers/{teacher_id}/students` | POST   | Cadastra uma solicitação de aula                  | Não                   |
-| `/api/teachers`                          | POST   | Cadastra um professor                             | Não                   |
-| `/api/teachers`                          | PUT    | Atualiza os dados do professor logado             | Sim                   |
-| `/api/teachers/photo`                    | POST   | Atualiza a foto de um professor                   | Sim                   |
-| `/api/teachers/students`                 | GET    | Lista as solicitações de aula do professor logado | Sim                   |
-| `/api/teachers`                          | DELETE | Exclui o professor logado                         | Sim                   |
-| `/api/auth/login`                        | POST   | Faz login                                         | Não                   |
-| `/api/auth/refresh`                      | POST   | Atualiza o token de acesso                        | Não                   |
-| `/api/auth/logout`                       | POST   | Faz logout                                        | Sim                   |
- | `/api/teachers/description/`             | GET   | Lista os professores por descrição
+| Rota                                 | Método | Descrição                                         | Requer Autenticação   |
+|--------------------------------------|--------|---------------------------------------------------|-----------------------|
+| `/api/teachers`                      | GET    | Lista os professores                              | Não                   |
+| `/api/teachers/{teacher_id}`         | GET    | Detalhes do professor                             | Não                   |
+| `/api/students/{teacher_id}` | POST   | Cadastra uma solicitação de aula                  | Não                   |
+| `/api/teachers`                      | POST   | Cadastra um professor                             | Não                   |
+| `/api/teachers`                      | PUT    | Atualiza os dados do professor logado             | Sim                   |
+| `/api/teachers/photo`                | POST   | Atualiza a foto de um professor                   | Sim                   |
+| `/api/teachers/students`             | GET    | Lista as solicitações de aula do professor logado | Sim                   |
+| `/api/teachers`                      | DELETE | Exclui o professor logado                         | Sim                   |
+| `/api/auth/login`                    | POST   | Faz login                                         | Não                   |
+| `/api/auth/refresh`                  | POST   | Atualiza o token de acesso                        | Não                   |
+| `/api/auth/logout`                   | POST   | Faz logout                                        | Sim                   |
+ | `/api/teachers/description/`         | GET   | Lista os professores por descrição
 
 ## Exemplos de Requisição e Retorno
 

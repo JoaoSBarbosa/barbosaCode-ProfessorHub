@@ -29,9 +29,9 @@ public class StudentMapperImpl implements StudentMapper {
         if (studentRequest == null) return null;
         return Student
                 .builder()
-                .name(studentRequest.getName())
+                .name(studentRequest.getNome())
                 .email(studentRequest.getEmail())
-                .classDate(studentRequest.getClassDateTime())
+                .classDate(studentRequest.getDataAula())
                 .build();
     }
 
