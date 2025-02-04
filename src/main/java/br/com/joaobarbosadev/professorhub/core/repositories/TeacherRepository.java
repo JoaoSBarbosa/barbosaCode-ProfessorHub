@@ -11,4 +11,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query("SELECT t FROM Teacher t WHERE t.description LIKE %:description%")
     List<Teacher> findByDescription(@Param("description") String description);
+
+    boolean existsByEmail(String email);
 }
