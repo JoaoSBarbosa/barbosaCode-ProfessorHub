@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.dtos;
 
+import br.com.joaobarbosadev.professorhub.api.teachers.validations.TeacherEmailIsUnique;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.*;
@@ -26,6 +27,7 @@ public class TeacherRequest {
     @NotBlank(message = "O campo E-mail não pode estar vazio ou conter apenas espaços em branco.")
     @Size(min = 3, max = 255, message = "O campo E-mail deve ter entre 3 e 255 caracteres.")
     @Email(message = "O campo E-mail deve conter um endereço de e-mail válido.")
+    @TeacherEmailIsUnique
     private String email;
 
     @NotNull(message = "O campo Idade é obrigatório.")
