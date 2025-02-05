@@ -1,6 +1,7 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.dtos;
 
 import br.com.joaobarbosadev.professorhub.api.teachers.validations.TeacherEmailIsUnique;
+import br.com.joaobarbosadev.professorhub.core.validations.FieldsAreEquals;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.*;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+@FieldsAreEquals(field = "senha",fieldMatch = "confirmarSenha")
 public class TeacherRequest {
 
     @NotNull(message = "O campo Nome é obrigatório.")
