@@ -1,16 +1,13 @@
-package br.com.joaobarbosadev.professorhub.core.models.abstractions;
+package br.com.joaobarbosadev.professorhub.core.security.model;
 
 import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
