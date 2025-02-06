@@ -6,6 +6,8 @@ import br.com.joaobarbosadev.professorhub.api.teachers.mappers.TeacherMapper;
 import br.com.joaobarbosadev.professorhub.api.teachers.mappers.TeacherMapperImpl;
 import br.com.joaobarbosadev.professorhub.core.repositories.TeacherRepository;
 import br.com.joaobarbosadev.professorhub.core.exceptions.custom.CustomEntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,19 +15,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherMapper teacherMapper;
     private final TeacherRepository teacherRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMapperImpl teacherMapper) {
-        this.teacherRepository = teacherRepository;
-        this.teacherMapper = teacherMapper;
-    }
+
 
     @Override
     public TeacherResponse saveTeacher(TeacherRequest teacherRequest) {
         var teacherForSave = teacherMapper.toTeacher(teacherRequest);
+        teacherForSave.setPassword(passwordEncoder.encode(teacherForSave.getPassword()));
         return teacherMapper.toTeacherResponse(teacherRepository.save(teacherForSave));
     }
 
