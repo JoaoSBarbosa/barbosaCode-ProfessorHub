@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.core.security.model;
+package br.com.joaobarbosadev.professorhub.core.services.authentication.model;
 
 import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import lombok.Getter;
