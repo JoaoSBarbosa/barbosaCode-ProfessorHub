@@ -1,10 +1,8 @@
-package br.com.joaobarbosadev.professorhub.core.security.services;
+package br.com.joaobarbosadev.professorhub.core.services.authentication.services;
 
-import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
 import br.com.joaobarbosadev.professorhub.core.repositories.TeacherRepository;
-import br.com.joaobarbosadev.professorhub.core.security.model.AuthenticatedUser;
+import br.com.joaobarbosadev.professorhub.core.services.authentication.model.AuthenticatedUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
