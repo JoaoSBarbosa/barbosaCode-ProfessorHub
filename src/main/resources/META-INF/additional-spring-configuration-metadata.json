@@ -1,7 +1,7 @@
 {
   "properties": [
     {
-      "name": "com.joaobarbosadev.professorhub.core.services.token.jjwt.accessTokenSigninKey",
+      "name": "com.joaobarbosadev.professorhub.core.services.token.jjwt.accessTokenSigningKey",
       "type": "java.lang.String",
       "description": "Chave secreta usada para assinar o access token."
     },
@@ -11,7 +11,7 @@
       "description": "Tempo de expiração do access token em segundos."
     },
     {
-      "name": "com.joaobarbosadev.professorhub.core.services.token.jjwt.refreshTokenSigninKey",
+      "name": "com.joaobarbosadev.professorhub.core.services.token.jjwt.refreshTokenSigningKey",
       "type": "java.lang.String",
       "description": "Chave secreta usada para assinar o refresh token."
     },
