@@ -8,5 +8,5 @@ public interface TokenService {
     String generateRefreshToken(String subject); // gera o refress token
     String getSubjectFromRefreshToken(String refreshToken); // pega o subject do refress token
 
-    void validateAcessToken(String... token); // String... significa que pode receber um ou varios argumentos do tipo string
+    void inlidateAcessToken(String... token); // String... significa que pode receber um ou varios argumentos do tipo string
 }
