@@ -3,7 +3,11 @@ package br.com.joaobarbosadev.professorhub.api.common.routes;
 public class APIRoutes {
 
     public static final String API = "/api";
+    public static final String AUTH ="/auth";
+    public static final String LOGIN = API + AUTH + "/login";
+
     public static final String TEACHERS="/teachers";
+
 
 
     public static final String ROUTE_TEACHERS = API + TEACHERS;

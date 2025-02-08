@@ -31,7 +31,7 @@ public class Student extends Auditable {
     @Column(name = "data_aula")
     private LocalDateTime classDate;
 
-    @ManyToOne(fetch = FetchType.LAZY) // carrega dados do professor sempre que carregar os dados do aluno
+    @ManyToOne(fetch = FetchType.EAGER) // carrega dados do professor sempre que carregar os dados do aluno
     @JoinColumn(name = "professor_id")
     private Teacher teacher;
 
