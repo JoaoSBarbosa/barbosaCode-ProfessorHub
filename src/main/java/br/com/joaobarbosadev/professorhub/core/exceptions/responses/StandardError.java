@@ -20,6 +20,7 @@ public class StandardError {
     private String timestamp;
     private String path;
     private String details;
+    private String error;
 
 
 
