@@ -61,6 +61,7 @@ public class AccessTokenRequestFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().getAuthentication() == null;
     }
 
+    // verifica se token esta presente
     private static boolean isIsPresentToken(String authorizationHeader) {
         return authorizationHeader != null && authorizationHeader.startsWith(TOKEN_TYPE);
     }
