@@ -1,11 +1,11 @@
-package br.com.joaobarbosadev.professorhub.core.exceptions.handlers;
+package br.com.joaobarbosadev.professorhub.api.common.exceptions.handlers;
 
 import br.com.joaobarbosadev.professorhub.api.common.Utils.Util;
 import br.com.joaobarbosadev.professorhub.api.common.dtos.ValidationErrorResponse;
-import br.com.joaobarbosadev.professorhub.core.exceptions.custom.CustomEntityNotFoundException;
-import br.com.joaobarbosadev.professorhub.core.exceptions.responses.StandardError;
+import br.com.joaobarbosadev.professorhub.api.common.exceptions.custom.CustomEntityNotFoundException;
+import br.com.joaobarbosadev.professorhub.api.common.exceptions.responses.StandardError;
+import br.com.joaobarbosadev.professorhub.core.services.token.exceptions.TokenServiceException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,6 +39,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         standardError.setTimestamp(Util.getFormattedInstante());
         standardError.setPath(request.getRequestURI());
         standardError.setTitle("Entidade não encontrada");
+        return ResponseEntity.status(status).body(standardError);
+    }
+
+    @ExceptionHandler(TokenServiceException.class)
+    public ResponseEntity<StandardError> handleTokenServiceException(TokenServiceException exception, HttpServletRequest request) {
+        StandardError standardError = new StandardError();
+        HttpStatus status = HttpStatus.UNAUTHORIZED;
+        standardError.setStatus(status.value());
+        standardError.setError(status.getReasonPhrase());
+        standardError.setMessage(exception.getMessage());
+        standardError.setTimestamp(Util.getFormattedInstante());
+        standardError.setDetails(exception.getClass().getSimpleName());
+        standardError.setPath(request.getRequestURI());
+        standardError.setTitle("Falha no token");
         return ResponseEntity.status(status).body(standardError);
     }
 
@@ -80,4 +94,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(body, headers, status);
     }
+
+
 }
