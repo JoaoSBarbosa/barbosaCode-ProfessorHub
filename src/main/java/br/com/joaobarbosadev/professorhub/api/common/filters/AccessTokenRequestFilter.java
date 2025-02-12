@@ -1,11 +1,10 @@
 package br.com.joaobarbosadev.professorhub.api.common.filters;
 
 import br.com.joaobarbosadev.professorhub.api.common.Utils.Util;
-import br.com.joaobarbosadev.professorhub.core.exceptions.responses.StandardError;
+import br.com.joaobarbosadev.professorhub.api.common.exceptions.responses.StandardError;
 import br.com.joaobarbosadev.professorhub.core.services.token.TokenService;
 import br.com.joaobarbosadev.professorhub.core.services.token.exceptions.TokenServiceException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;

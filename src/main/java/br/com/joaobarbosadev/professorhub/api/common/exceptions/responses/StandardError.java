@@ -1,4 +1,4 @@
-package br.com.joaobarbosadev.professorhub.core.exceptions.responses;
+package br.com.joaobarbosadev.professorhub.api.common.exceptions.responses;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

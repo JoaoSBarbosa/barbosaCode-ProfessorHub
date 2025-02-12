@@ -3,7 +3,7 @@ package br.com.joaobarbosadev.professorhub.api.auth.services;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginResponse;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshToken;
-import br.com.joaobarbosadev.professorhub.core.exceptions.custom.CustomEntityNotFoundException;
+import br.com.joaobarbosadev.professorhub.api.common.exceptions.custom.CustomEntityNotFoundException;
 import br.com.joaobarbosadev.professorhub.core.repositories.TeacherRepository;
 import br.com.joaobarbosadev.professorhub.core.services.authentication.model.AuthenticatedUser;
 import br.com.joaobarbosadev.professorhub.core.services.token.TokenService;

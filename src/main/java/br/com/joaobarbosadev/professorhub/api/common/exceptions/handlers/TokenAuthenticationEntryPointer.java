@@ -1,7 +1,7 @@
-package br.com.joaobarbosadev.professorhub.api.common.handlers;
+package br.com.joaobarbosadev.professorhub.api.common.exceptions.handlers;
 
 import br.com.joaobarbosadev.professorhub.api.common.Utils.Util;
-import br.com.joaobarbosadev.professorhub.core.exceptions.responses.StandardError;
+import br.com.joaobarbosadev.professorhub.api.common.exceptions.responses.StandardError;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import org.springframework.web.ErrorResponse;
 
 import java.io.IOException;
 
