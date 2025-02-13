@@ -64,7 +64,7 @@ public class AccessTokenRequestFilter extends OncePerRequestFilter {
         var authorizationHeader = request.getHeader(AUTHORIZATION_HEADER);
         if (isIsPresentToken(authorizationHeader)) {
             token = authorizationHeader.substring(TOKEN_TYPE.length());
-            email = tokenService.getSubjectFromAcessToken(token);
+            email = tokenService.getSubjectFromAccessToken(token);
         }
         // verifica se o email já não esta no context do spring security
         if (isIsEmailNotInContent(email)) {

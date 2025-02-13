@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
 
         return LoginResponse
                 .builder()
-                .token(tokenService.generateAcessToken(teacher.getEmail()))
+                .token(tokenService.generateAccessToken(teacher.getEmail()))
                 .refreshToken(tokenService.generateRefreshToken(teacher.getEmail()))
                 .build();
     }
@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         return LoginResponse.builder()
-                .token(tokenService.generateAcessToken(subject))
+                .token(tokenService.generateAccessToken(subject))
                 .refreshToken(refreshToken.getRefreshToken())
                 .build();
     }

@@ -20,7 +20,7 @@ public class JjwtTokenService implements TokenService {
     private final JjwtConfigProperties configProperties;
 
     @Override
-    public String generateAcessToken(String subject) {
+    public String generateAccessToken(String subject) {
         return generateToken(
                 subject,
                 configProperties.getAccessTokenExpirationInSeconds(),
@@ -29,7 +29,7 @@ public class JjwtTokenService implements TokenService {
     }
 
     @Override
-    public String getSubjectFromAcessToken(String token) {
+    public String getSubjectFromAccessToken(String token) {
         return getClaims(token, configProperties.getAccessTokenSigningKey()).getSubject();
     }
 
