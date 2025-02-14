@@ -1,8 +1,7 @@
 package br.com.joaobarbosadev.professorhub.api.auth.controllers;
-
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginResponse;
-import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshToken;
+import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.services.AuthService;
 import br.com.joaobarbosadev.professorhub.api.common.routes.APIRoutes;
 import jakarta.validation.Valid;
@@ -27,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping(APIRoutes.REFRESH)
-    public LoginResponse refreshToken(@RequestBody @Valid RefreshToken refreshToken) {
-        return authService.refreshToken(refreshToken);
+    public LoginResponse refreshToken(@RequestBody @Valid RefreshRequest refreshRequest) {
+        return authService.refreshToken(refreshRequest);
     }
 }
