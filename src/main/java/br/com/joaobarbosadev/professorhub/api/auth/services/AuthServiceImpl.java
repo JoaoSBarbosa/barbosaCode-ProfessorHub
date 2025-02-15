@@ -49,4 +49,9 @@ public class AuthServiceImpl implements AuthService {
                 .refreshToken(refreshRequest.getRefreshToken())
                 .build();
     }
+
+    @Override
+    public void logout(String token, RefreshRequest refreshRequest) {
+        tokenService.inlidateAcessToken(token, refreshRequest.getRefreshToken());
+    }
 }
