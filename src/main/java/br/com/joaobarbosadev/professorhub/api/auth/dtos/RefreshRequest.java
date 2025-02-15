@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class RefreshToken {
+public class RefreshRequest {
     @NotBlank
     @NotNull
     private String refreshToken;

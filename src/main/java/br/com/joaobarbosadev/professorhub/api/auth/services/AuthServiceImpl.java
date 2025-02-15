@@ -1,8 +1,7 @@
 package br.com.joaobarbosadev.professorhub.api.auth.services;
-
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginResponse;
-import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshToken;
+import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshRequest;
 import br.com.joaobarbosadev.professorhub.api.common.exceptions.custom.CustomEntityNotFoundException;
 import br.com.joaobarbosadev.professorhub.core.repositories.TeacherRepository;
 import br.com.joaobarbosadev.professorhub.core.services.authentication.model.AuthenticatedUser;
@@ -20,6 +19,7 @@ public class AuthServiceImpl implements AuthService {
     private final TeacherRepository teacherRepository;
     private final AuthenticationManager authenticationManager;
 
+
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
         var userNamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
@@ -35,16 +35,21 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginResponse refreshToken(RefreshToken refreshToken) {
-        var subject = tokenService.getSubjectFromRefreshToken(refreshToken.getRefreshToken());
+    public LoginResponse refreshToken(RefreshRequest refreshRequest) {
+        var subject = tokenService.getSubjectFromRefreshToken(refreshRequest.getRefreshToken());
 
         if (!teacherRepository.existsByEmail(subject)) {
             throw new CustomEntityNotFoundException("Não existe registro de professor com o email: " + subject);
         }
-
+        tokenService.inlidateAcessToken(refreshRequest.getRefreshToken());
         return LoginResponse.builder()
                 .token(tokenService.generateAccessToken(subject))
-                .refreshToken(refreshToken.getRefreshToken())
+                .refreshToken(refreshRequest.getRefreshToken())
                 .build();
+    }
+
+    @Override
+    public void logout(String token, RefreshRequest refreshRequest) {
+        tokenService.inlidateAcessToken(token, refreshRequest.getRefreshToken());
     }
 }

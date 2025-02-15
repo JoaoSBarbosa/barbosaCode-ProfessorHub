@@ -1,5 +1,7 @@
 package br.com.joaobarbosadev.professorhub.core.services.token.providers.jjwt;
 
+import br.com.joaobarbosadev.professorhub.core.models.entities.InvalidToken;
+import br.com.joaobarbosadev.professorhub.core.repositories.InvalidTokenRepository;
 import br.com.joaobarbosadev.professorhub.core.services.token.TokenService;
 import br.com.joaobarbosadev.professorhub.core.services.token.exceptions.TokenServiceException;
 import io.jsonwebtoken.Claims;
@@ -12,12 +14,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
 public class JjwtTokenService implements TokenService {
 
     private final JjwtConfigProperties configProperties;
+    private final InvalidTokenRepository invalidTokenRepository;
 
     @Override
     public String generateAccessToken(String subject) {
@@ -44,7 +48,12 @@ public class JjwtTokenService implements TokenService {
     }
 
     @Override
-    public void inlidateAcessToken(String... token) {
+    public void inlidateAcessToken(String... tokens) {
+        var invalidTokens = Stream.of(tokens)
+                .map(token -> InvalidToken.builder().token(token).build())
+                .toList();
+
+        invalidTokenRepository.saveAll(invalidTokens);
 
     }
 
@@ -58,6 +67,9 @@ public class JjwtTokenService implements TokenService {
     }
 
     private Claims tryGetClaims(String token, String signingKey) {
+        if(invalidTokenRepository.existsByToken(token)) {
+            throw new TokenServiceException("Token '" + token + "' está invalido");
+        }
         return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(signingKey.getBytes()))
                 .build()

@@ -1,17 +1,16 @@
 package br.com.joaobarbosadev.professorhub.api.auth.controllers;
-
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.dtos.LoginResponse;
-import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshToken;
+import br.com.joaobarbosadev.professorhub.api.auth.dtos.RefreshRequest;
 import br.com.joaobarbosadev.professorhub.api.auth.services.AuthService;
+import br.com.joaobarbosadev.professorhub.api.common.Utils.JwtBearerDefaults;
 import br.com.joaobarbosadev.professorhub.api.common.routes.APIRoutes;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,7 +26,15 @@ public class AuthController {
     }
 
     @PostMapping(APIRoutes.REFRESH)
-    public LoginResponse refreshToken(@RequestBody @Valid RefreshToken refreshToken) {
-        return authService.refreshToken(refreshToken);
+    public LoginResponse refreshToken(@RequestBody @Valid RefreshRequest refreshRequest) {
+        return authService.refreshToken(refreshRequest);
+    }
+
+    @PostMapping(APIRoutes.LOGOUT)
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<Void> logout(@RequestHeader String authorization, @RequestBody @Valid RefreshRequest refreshRequest) {
+        var token = authorization.substring(JwtBearerDefaults.TOKEN_TYPE.length());
+        authService.logout(token, refreshRequest);
+        return ResponseEntity.status(HttpStatus.RESET_CONTENT).build();
     }
 }
