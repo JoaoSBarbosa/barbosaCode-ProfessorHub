@@ -15,13 +15,13 @@ public class TeacherMapperImpl implements TeacherMapper {
         return TeacherResponse
                 .builder()
                 .id(teacher.getId())
-                .name(teacher.getName())
-                .description(teacher.getDescription())
-                .age(teacher.getAge())
+                .name(teacher.getNome())
+                .description(teacher.getDescricao())
+                .age(teacher.getIdade())
                 .email(teacher.getEmail())
                 .createdAt(teacher.getCreatedAt())
-                .hourlyRate(teacher.getHourlyRate())
-                .password(teacher.getPassword())
+                .hourlyRate(teacher.getValorHora())
+                .password(teacher.getSenha())
                 .updatedAt(teacher.getUpdatedAt())
                 .urlPhoto(teacher.getUrlPhoto())
                 .build();
@@ -46,12 +46,12 @@ public class TeacherMapperImpl implements TeacherMapper {
         if (teacherRequest == null) return null;
 
         return Teacher.builder()
-                .description( teacherRequest.getDescricao() )
-                .name( teacherRequest.getNome() )
-                .age( teacherRequest.getIdade() )
+                .descricao( teacherRequest.getDescricao() )
+                .nome( teacherRequest.getNome() )
+                .idade( teacherRequest.getIdade() )
                 .email( teacherRequest.getEmail() )
-                .password( teacherRequest.getSenha() )
-                .hourlyRate( teacherRequest.getValorHora() )
+                .senha( teacherRequest.getSenha() )
+                .valorHora( teacherRequest.getValorHora() )
                 .build();
     }
 

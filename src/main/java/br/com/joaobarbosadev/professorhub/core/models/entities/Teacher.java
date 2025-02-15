@@ -1,13 +1,9 @@
 package br.com.joaobarbosadev.professorhub.core.models.entities;
 import br.com.joaobarbosadev.professorhub.core.models.abstractions.Auditable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Builder
@@ -22,17 +18,17 @@ public class Teacher extends Auditable {
     @EqualsAndHashCode.Include
     private Long id;
     @Column(name = "nome")
-    private String name;
+    private String nome;
     @Column(name = "email")
     private String email;
     @Column(name = "idade")
-    private Integer age;
+    private Integer idade;
     @Column(name = "descricao")
-    private String description;
+    private String descricao;
     @Column(name = "valor_hora")
-    private BigDecimal hourlyRate;
+    private BigDecimal valorHora;
     @Column(name = "foto_perfil")
     private String urlPhoto;
     @Column(name = "password")
-    private String password;
+    private String senha;
 }

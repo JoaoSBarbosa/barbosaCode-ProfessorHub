@@ -24,7 +24,7 @@ public class AuthenticatedUser implements UserDetails {
 
     @Override
     public String getPassword() {
-       return teacher.getPassword();
+       return teacher.getSenha();
     }
 
     @Override

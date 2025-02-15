@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface TeacherService {
 
-    public List<TeacherResponse> findByDescription(String description);
+    List<TeacherResponse> findByDescription(String description);
     TeacherResponse findById(Long id);
-
     TeacherResponse saveTeacher(TeacherRequest teacherRequest);
+    TeacherResponse updateTeacher(TeacherRequest teacherRequest);
 
 }

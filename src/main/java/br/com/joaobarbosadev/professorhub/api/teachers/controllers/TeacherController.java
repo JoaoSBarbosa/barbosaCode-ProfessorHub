@@ -6,6 +6,7 @@ import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.api.teachers.services.TeacherService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -44,4 +45,10 @@ public class TeacherController {
         return ResponseEntity.ok(teacherService.findById(id));
     }
 
+    @PutMapping
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<TeacherResponse> updateTeacher(@RequestBody @Valid TeacherRequest teacherRequest) {
+        var updateTeacher = teacherService.updateTeacher(teacherRequest);
+        return ResponseEntity.ok(updateTeacher);
+    }
 }

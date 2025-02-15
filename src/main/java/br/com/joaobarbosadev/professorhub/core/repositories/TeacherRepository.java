@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    @Query("SELECT t FROM Teacher t WHERE t.description LIKE %:description%")
+    @Query("SELECT t FROM Teacher t WHERE t.descricao LIKE %:description%")
     List<Teacher> findByDescription(@Param("description") String description);
 
     @Query("SELECT t FROM Teacher t WHERE t.email = :email")
