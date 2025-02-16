@@ -1,0 +1,1 @@
+ALTER TABLE `dropbox` MODIFY COLUMN `access_token` TEXT NOT NULL, MODIFY COLUMN `refresh_token` TEXT;
