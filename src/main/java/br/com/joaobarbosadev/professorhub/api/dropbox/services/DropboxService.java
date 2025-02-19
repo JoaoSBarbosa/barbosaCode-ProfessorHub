@@ -14,4 +14,7 @@ public interface DropboxService {
     Dropbox findById(Long id);
     String getRefreshToken() throws IOException;
     Dropbox saveAuthCode(DropboxAuth authCode) throws IOException;
+
+    void checkoutValidateAcessToken() throws IOException;
+    void refreshAccessToken(Dropbox dropbox) throws IOException;
 }
