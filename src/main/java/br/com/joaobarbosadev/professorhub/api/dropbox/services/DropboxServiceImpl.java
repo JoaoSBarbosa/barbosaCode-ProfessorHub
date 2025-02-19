@@ -27,11 +27,12 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class DropboxServiceImpl implements DropboxService {
-//    private final DropboxRepository dropboxRepository;
+    //    private final DropboxRepository dropboxRepository;
     private final DropboxMapper dropboxMapper;
-//    private final RestTemplateBuilder restTemplateBuilder;
+    //    private final RestTemplateBuilder restTemplateBuilder;
     private final DropboxRepository dropboxRepository;
     private final RestTemplate restTemplate;
+
     @Override
     @Transactional
     public Dropbox initialize(DropboxInitial dropboxInitial) {
@@ -49,59 +50,104 @@ public class DropboxServiceImpl implements DropboxService {
     @Override
     @Transactional(readOnly = true)
     public Dropbox findById(Long id) {
-        return dropboxRepository.findById(id).orElseThrow(()-> new RuntimeException("Não localizado com o id: " +id));
+        return dropboxRepository.findById(id).orElseThrow(() -> new RuntimeException("Não localizado com o id: " + id));
     }
+
+//    @Override
+//    public String getRefreshToken() throws IOException {
+//        Dropbox dropbox = getDropboxEntity();
+//
+//        if (dropbox.getAuthCode() == null || dropbox.getAuthCode().isEmpty()) {
+//            throw new RuntimeException("Auth code não encontrado. Salve um código antes de gerar o refresh token.");
+//        }
+//
+//        ResponseEntity<String> response = restTemplate.exchange(
+//                "https://api.dropbox.com/oauth2/token",
+//                HttpMethod.POST,
+//                createTokenRequest(dropbox),
+//                String.class
+//        );
+//
+//        if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+//            JsonObject responseBody = JsonParser.parseString(response.getBody()).getAsJsonObject();
+//
+//            if (!responseBody.has("refresh_token")) {
+//                throw new RuntimeException("Erro: resposta não contém refresh_token.");
+//            }
+//
+//            String refreshToken = responseBody.get("refresh_token").getAsString();
+//            int expiresInValue = responseBody.has("expires_in") ? responseBody.get("expires_in").getAsInt() : 14400; // Padrão: 4 horas
+//
+//            // Calcula a data de expiração com base no expires_in
+//            LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
+//            LocalDateTime expiresAt = now.plusSeconds(expiresInValue);
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//
+//            // Convertendo para String
+//            String createAccessDateTimeStr = now.format(formatter);
+//            String expiresAccessDateTimeStr = expiresAt.format(formatter);
+//            String expiresInStr = String.valueOf(expiresInValue); // Conversão correta para String
+//
+//            // Atualiza os valores na entidade
+//            dropbox.setRefreshToken(refreshToken);
+//            dropbox.setCreateAccessDateTime(createAccessDateTimeStr);
+//            dropbox.setExpiresIn(expiresInStr); // Agora é String
+//            dropbox.setExpiresAccessDateTime(expiresAccessDateTimeStr);
+//
+//            dropboxRepository.save(dropbox);
+//
+//            return refreshToken;
+//        } else {
+//            throw new RuntimeException("Erro ao obter o refresh token do Dropbox. Status: " + response.getStatusCodeValue());
+//        }
+//    }
 
     @Override
     public String getRefreshToken() throws IOException {
         Dropbox dropbox = getDropboxEntity();
-
         if (dropbox.getAuthCode() == null || dropbox.getAuthCode().isEmpty()) {
             throw new RuntimeException("Auth code não encontrado. Salve um código antes de gerar o refresh token.");
         }
+        String clientId = dropbox.getApiKey();
+        String clientSecret = dropbox.getApiSecret();
+        String authorizationCode = dropbox.getAuthCode();
 
-        ResponseEntity<String> response = restTemplate.exchange(
-                "https://api.dropbox.com/oauth2/token",
-                HttpMethod.POST,
-                createTokenRequest(dropbox),
-                String.class
-        );
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "authorization_code");
+        body.add("code", authorizationCode);
+        body.add("client_id", clientId);
+        body.add("client_secret", clientSecret);
+
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity("https://api.dropbox.com/oauth2/token", requestEntity, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
             JsonObject responseBody = JsonParser.parseString(response.getBody()).getAsJsonObject();
 
-            if (!responseBody.has("refresh_token")) {
+            if (responseBody.has("refresh_token")) {
+                dropbox.setRefreshToken(responseBody.get("refresh_token").getAsString());
+            } else {
                 throw new RuntimeException("Erro: resposta não contém refresh_token.");
             }
-
-            String refreshToken = responseBody.get("refresh_token").getAsString();
-            int expiresInValue = responseBody.has("expires_in") ? responseBody.get("expires_in").getAsInt() : 14400; // Padrão: 4 horas
-
-            // Calcula a data de expiração com base no expires_in
-            LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
-            LocalDateTime expiresAt = now.plusSeconds(expiresInValue);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-            // Convertendo para String
-            String createAccessDateTimeStr = now.format(formatter);
-            String expiresAccessDateTimeStr = expiresAt.format(formatter);
-            String expiresInStr = String.valueOf(expiresInValue); // Conversão correta para String
-
-            // Atualiza os valores na entidade
-            dropbox.setRefreshToken(refreshToken);
-            dropbox.setCreateAccessDateTime(createAccessDateTimeStr);
-            dropbox.setExpiresIn(expiresInStr); // Agora é String
-            dropbox.setExpiresAccessDateTime(expiresAccessDateTimeStr);
-
+            if (responseBody.has("access_token")) {
+                dropbox.setAccessToken(responseBody.get("access_token").getAsString());
+            }
+            if (responseBody.has("expires_in")) {
+                long expiresIn = responseBody.get("expires_in").getAsLong();
+                LocalDateTime expirationDate = LocalDateTime.now().plusSeconds(expiresIn);
+                dropbox.setExpiresIn(expirationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                dropbox.setExpiresAccessDateTime(expirationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            }
             dropboxRepository.save(dropbox);
-
-            return refreshToken;
+            return responseBody.get("refresh_token").getAsString();
         } else {
             throw new RuntimeException("Erro ao obter o refresh token do Dropbox. Status: " + response.getStatusCodeValue());
         }
     }
-
-
 
 //    @Override
 //    public String getRefreshToken() throws IOException {
@@ -152,7 +198,7 @@ public class DropboxServiceImpl implements DropboxService {
 
     @Override
     public Dropbox saveAuthCode(DropboxAuth authCode) throws IOException {
-        if(authCode.getAuthCode() == null || authCode.getAuthCode().isEmpty()) {
+        if (authCode.getAuthCode() == null || authCode.getAuthCode().isEmpty()) {
             throw new RuntimeException("Codigo de autorização deve estar preenchido");
         }
         Dropbox dropbox = getDropboxEntity();
@@ -163,8 +209,8 @@ public class DropboxServiceImpl implements DropboxService {
 
     }
 
-    private Dropbox getDropboxEntity(){
-        return dropboxRepository.findById(1L).orElseThrow(()-> new CustomEntityNotFoundException("Não foi possivel localizar registros de configuração dropbox com o id 1"));
+    private Dropbox getDropboxEntity() {
+        return dropboxRepository.findById(1L).orElseThrow(() -> new CustomEntityNotFoundException("Não foi possivel localizar registros de configuração dropbox com o id 1"));
 
     }
 }

@@ -16,6 +16,8 @@ public class Dropbox extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "dropbox_id")
     private Long id;
+    @Column( name = "codigo_autorizacao" )
+    private String authCode;
     @Column(name = "api_key")
     private String apiKey;
     @Column(name = "api_secret")
@@ -24,12 +26,12 @@ public class Dropbox extends Auditable {
     private String accessToken;
     @Column(name = "refresh_token", columnDefinition = "TEXT")
     private String refreshToken;
+
+
+    @Column( name = "expira_em" )
+    private String expiresIn;
     @Column( name = "data_hora_cadastro_acesso" )
     private String createAccessDateTime;
     @Column( name = "data_hora_vencimento_acesso" )
     private String expiresAccessDateTime;
-    @Column( name = "expira_em" )
-    private String expiresIn;
-    @Column( name = "codigo_autorizacao" )
-    private String authCode;
 }
