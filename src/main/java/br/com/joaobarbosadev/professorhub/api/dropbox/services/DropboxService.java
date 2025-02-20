@@ -1,20 +1,13 @@
 package br.com.joaobarbosadev.professorhub.api.dropbox.services;
 
-import br.com.joaobarbosadev.professorhub.api.dropbox.dtos.DropboxAuth;
-import br.com.joaobarbosadev.professorhub.api.dropbox.dtos.DropboxInitial;
-import br.com.joaobarbosadev.professorhub.core.models.entities.Dropbox;
+import com.dropbox.core.DbxException;
 
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 
 public interface DropboxService {
 
-    Dropbox initialize(DropboxInitial dropboxInitial);
-    List<Dropbox> findAll();
-    Dropbox findById(Long id);
-    String getRefreshToken() throws IOException;
-    Dropbox saveAuthCode(DropboxAuth authCode) throws IOException;
 
-    void checkoutValidateAcessToken() throws IOException;
-    void refreshAccessToken(Dropbox dropbox) throws IOException;
+    String uploadTeacherPhoto(String fileName, String teacherName, Long teacherId, InputStream fileStream) throws DbxException, IOException;
+
 }
