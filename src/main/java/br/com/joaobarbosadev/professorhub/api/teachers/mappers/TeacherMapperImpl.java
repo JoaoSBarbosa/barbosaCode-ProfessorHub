@@ -1,5 +1,6 @@
 package br.com.joaobarbosadev.professorhub.api.teachers.mappers;
 
+import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherPhotoResponse;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherRequest;
 import br.com.joaobarbosadev.professorhub.api.teachers.dtos.TeacherResponse;
 import br.com.joaobarbosadev.professorhub.core.models.entities.Teacher;
@@ -46,12 +47,23 @@ public class TeacherMapperImpl implements TeacherMapper {
         if (teacherRequest == null) return null;
 
         return Teacher.builder()
-                .descricao( teacherRequest.getDescricao() )
-                .nome( teacherRequest.getNome() )
-                .idade( teacherRequest.getIdade() )
-                .email( teacherRequest.getEmail() )
-                .senha( teacherRequest.getSenha() )
-                .valorHora( teacherRequest.getValorHora() )
+                .descricao(teacherRequest.getDescricao())
+                .nome(teacherRequest.getNome())
+                .idade(teacherRequest.getIdade())
+                .email(teacherRequest.getEmail())
+                .senha(teacherRequest.getSenha())
+                .valorHora(teacherRequest.getValorHora())
+                .build();
+    }
+
+    @Override
+    public TeacherPhotoResponse toTeacherPhotoResponse(Teacher teacher) {
+        if (teacher == null) return null;
+        return TeacherPhotoResponse.builder()
+                .id(teacher.getId())
+                .name(teacher.getNome())
+                .linkFotoPerfil(teacher.getLinkFotoPerfil())
+                .urlPhoto(teacher.getUrlPhoto())
                 .build();
     }
 

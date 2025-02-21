@@ -127,7 +127,7 @@ public class DropboxConfigServiceImpl implements DropboxConfigService {
 
     }
 
-//    @Override
+    //    @Override
 //    public void checkoutValidateAcessToken() throws IOException {
 //        Dropbox dropbox = getDropboxEntity();
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -143,31 +143,26 @@ public class DropboxConfigServiceImpl implements DropboxConfigService {
 //            }
 //        }
 //    }
-@Override
-public void checkoutValidateAcessToken() throws IOException {
-    Dropbox dropbox = getDropboxEntity();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    @Override
+    public void checkoutValidateAcessToken() throws IOException {
+        Dropbox dropbox = getDropboxEntity();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    // Converte a data de criação do token para LocalDateTime
-    LocalDateTime createAccessDateTime = LocalDateTime.parse(dropbox.getCreateAccessDateTime(), formatter);
+        // Converte a data de expiração do token para LocalDateTime
+        LocalDateTime dateExpires = LocalDateTime.parse(dropbox.getExpiresIn(), formatter);
+        LocalDateTime now = LocalDateTime.now();
 
-    // Converte expires_in (segundos) para um valor numérico
-    long expiresInSeconds = Long.parseLong(dropbox.getExpiresIn());
-
-    // Calcula a data de expiração
-    LocalDateTime dateExpires = createAccessDateTime.plusSeconds(expiresInSeconds);
-    LocalDateTime now = LocalDateTime.now();
-
-    // Verifica se o token expirou
-    if (dateExpires.isBefore(now)) {
-        try {
-            refreshAccessToken(dropbox);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao fazer o refresh token do Dropbox: " + e.getMessage());
+        // Verifica se o token expirou
+        if (dateExpires.isBefore(now)) {
+            try {
+                refreshAccessToken(dropbox);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException("Erro ao fazer o refresh token do Dropbox: " + e.getMessage());
+            }
         }
     }
-}
+
     @Override
     public void refreshAccessToken(Dropbox dropbox) throws IOException {
         String refreshAccessToken = dropboxAPI.refreshAccessToken(
@@ -185,12 +180,16 @@ public void checkoutValidateAcessToken() throws IOException {
 
         dropbox.setAccessToken(newAccessToken);
 
-        // Salva expires_in como string (conforme o banco de dados espera)
-        dropbox.setExpiresIn(refreshTokenObj.get("expires_in").getAsString());
+        // Converte expires_in (segundos) para LocalDateTime
+        long expiresInSeconds = refreshTokenObj.get("expires_in").getAsLong();
+        LocalDateTime expirationDate = LocalDateTime.now().plusSeconds(expiresInSeconds);
+
+        // Salva expires_in como uma data no formato "yyyy-MM-dd HH:mm:ss"
+        dropbox.setExpiresIn(expirationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         // Define a data de criação e expiração do token
         dropbox.setCreateAccessDateTime(Util.getDateTime());
-        dropbox.setExpiresAccessDateTime(Util.expiresDateTime());
+        dropbox.setExpiresAccessDateTime(expirationDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         dropboxRepository.save(dropbox);
     }

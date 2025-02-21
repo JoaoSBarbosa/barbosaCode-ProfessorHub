@@ -45,7 +45,7 @@ public class DropboxConfigController {
         return dropboxConfigService.findAll();
     }
 
-    @GetMapping
+    @GetMapping("/refresh")
     public ResponseEntity<String> getRefreshToken() throws IOException {
         String retorno = dropboxConfigService.getRefreshToken();
         return ResponseEntity.ok(retorno);
