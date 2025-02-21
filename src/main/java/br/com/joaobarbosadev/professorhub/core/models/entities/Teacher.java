@@ -31,4 +31,6 @@ public class Teacher extends Auditable {
     private String urlPhoto;
     @Column(name = "password")
     private String senha;
+    @Column( name = "link_foto_perfil")
+    private String linkFotoPerfil;
 }
